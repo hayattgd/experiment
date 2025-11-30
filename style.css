@@ -1,0 +1,177 @@
+html,
+body {
+	padding: 0;
+	margin: 0;
+	height: 100%;
+	overscroll-behavior: none;
+}
+
+body {
+	color: white;
+	font-family: monospace;
+	transition: all 0.1s ease-in;
+	min-height: 100vh;
+	background: linear-gradient(#2c2f31, #11141a);
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	opacity: 0;
+	font-size: 19px;
+}
+
+main {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	min-height: 100vh;
+}
+
+hr {
+	border: none;
+	border-top: 2px solid #ffffff85;
+	margin: 0;
+	margin-top: 25px;
+	height: 25px;
+}
+
+small {
+	font-size: 15px;
+	font-weight: bold;
+}
+
+i {
+	font-family: serif;
+	font-style: italic;
+}
+
+i>b {
+	font-weight: 900;
+}
+
+b {
+	text-shadow: currentColor 0 0 10px;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-weight: inherit;
+}
+
+kbd {
+	background: linear-gradient(#3d3d3d, #292929);
+	padding: 3px;
+	color: #fff;
+	border-radius: 10px;
+}
+
+samp {
+	background-color: #242424;
+	border: 1px solid #fff;
+	border-radius: 8px;
+	padding: 5px;
+	font-size: 16px;
+}
+
+br {
+	margin: 10px 5px;
+}
+
+input.input-but-output {
+	background-color: transparent;
+	border: none;
+	border-radius: 0;
+	padding: unset;
+}
+
+input {
+	background-color: #00000083;
+	border: 1px solid #ffffff85;
+	border-radius: 8px;
+	color: inherit;
+	font-size: inherit;
+	font-family: inherit;
+	padding: 5px;
+}
+
+li {
+	list-style-position: inside;
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible {
+	outline: none;
+}
+
+a:focus-visible,
+button:focus-visible {
+	text-shadow: currentColor 0 0 15px;
+	font-weight: bolder;
+}
+
+:any-link {
+	transition: text-shadow 0.1s ease-out;
+	color: #77d4ff;
+	text-decoration: inherit;
+}
+
+:any-link:hover {
+	text-shadow: currentColor 0 0 3px;
+}
+
+header {
+	position: absolute;
+	font-size: 25px;
+	margin: 30px;
+}
+
+a:not([href]) {
+	color: inherit;
+}
+
+header>a[href] {
+	text-decoration: none;
+}
+
+h1 {
+	text-align: center;
+}
+
+[title] {
+	text-decoration: inherit;
+}
+
+[title]::after {
+	font-size: 15px;
+	content: "?";
+}
+
+.side-by-side {
+	display: inline-flex;
+	align-items: center;
+}
+
+h1 {
+	font-size: 60px;
+	text-wrap-mode: wrap;
+	padding: 0px;
+}
+
+h2 {
+	font-size: 45px;
+}
+
+h3 {
+	font-size: 35px;
+}
+
+h4,
+h5,
+h6 {
+	font-size: 30px;
+}

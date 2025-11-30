@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="../style.css">
+	<link rel="stylesheet" href="style.css">
+	<link rel="shortcut icon" href="https://hayattgd.github.io/img/favicon.png" type="image/x-icon">
+	<title>Floating-point number visualization</title>
+	<script src="../script.js"></script>
+</head>
+
+<body>
+	<header><a href="../index.html">back</a></header>
+	<main>
+		<h1 id="binary-result">
+			<span id="binary-sign">
+				<div id="binary-interactive-sign"></div>
+				<p class="sign">sign<small> (+/-)</small></p>
+			</span>
+			<span id="binary-exponent">
+				<div id="binary-interactive-exponent"></div>
+				<p class="exponent"><abbr title="Signed 8bit integer">exponent</abbr></p>
+			</span>
+			<span id="binary-mantissa">
+				<div id="binary-interactive-mantissa"></div>
+				<p class="mantissa">mantissa <small>(aka fraction/significand)</small></p>
+			</span>
+		</h1>
+		<h3>
+			(-1)<sup class="sign">sign</sup>&times;<span class="mantissa">mantissa</span>&times;2<sup
+				class="exponent">exponent</sup>
+			<br>= (-1)<sup class="sign" id="sn-decimal-sign"></sup>&times;<span class="mantissa"
+				id="sn-decimal-mantissa">1</span>&times;2<sup class="exponent"><span id="sn-decimal-exponent">0</span>-127</sup>
+			<br>=
+			<span class="sign" id="ssn-decimal-sign"></span><span class="mantissa"
+				id="ssn-decimal-mantissa">00</span>&times;2<sup class="exponent" id="ssn-decimal-exponent">1</sup>
+			<br>= <input class="input-but-output" id="decimal-result"></input>
+		</h3>
+	</main>
+	<script src="script.js"></script>
+</body>
+
+</html>
