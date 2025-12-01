@@ -13,6 +13,7 @@ const simplifieddecimalMantissa = document.getElementById("ssn-decimal-mantissa"
 function HtmlBinaryDigit(n, v) {
 	const button = document.createElement("button");
 	button.id = `binary-digit-${n}`;
+	button.className = "no-decoration";
 	button.textContent = v;
 	button.onclick = function () {
 		if (button.textContent == "0") {
