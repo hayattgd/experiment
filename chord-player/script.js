@@ -1,5 +1,6 @@
 const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 const thinLines = document.getElementById("thin-lines");
+const adjustChord = document.getElementById("adjust-chord");
 
 let thinline = false;
 
@@ -11,6 +12,17 @@ thinLines.onchange = ev => {
 const start = performance.now() / 1000;
 
 const Controls = document.getElementById("controls");
+
+adjustChord.onclick = ev => {
+	if (Controls.children.length < 3) { return; }
+	const first = Controls.children[0].lastChild.firstChild.value;
+	const second = first * 3 / 2;
+	const third = first * 5 / 4;
+	Controls.children[1].lastChild.firstChild.value = second;
+	Controls.children[1].lastChild.childNodes[1].value = second;
+	Controls.children[2].lastChild.firstChild.value = third;
+	Controls.children[2].lastChild.childNodes[1].value = third;
+}
 
 function CreateControl() {
 	const root = document.createElement("div");
