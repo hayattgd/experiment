@@ -265,6 +265,21 @@ svg.panel {
 	padding: 0px;
 }
 
+.canvas-container {
+	width: calc(100vw - 50px);
+	height: calc(100vh - 200px);
+	padding: 0;
+}
+
+.canvas-container>canvas {
+	border-radius: 16px;
+}
+
+canvas {
+	margin: 0;
+	padding: 0;
+}
+
 h1 {
 	font-size: 60px;
 	text-wrap-mode: wrap;
@@ -283,4 +298,34 @@ h4,
 h5,
 h6 {
 	font-size: 30px;
+}
+
+main>div.article {
+	width: 80vw;
+	min-height: 100vh;
+	font-family: serif;
+}
+
+div.article h1,
+div.article h2,
+div.article h3,
+div.article h4,
+div.article h5,
+div.article h6 {
+	margin: 20px 0;
+}
+
+div.articlev h1,
+div.article h2 {
+	text-align: center;
+	text-wrap-mode: nowrap;
+	font-weight: 500;
+}
+
+div.article h1 {
+	padding: 30px 20px;
+}
+
+div.article h2 {
+	padding: 10px 10px;
 }

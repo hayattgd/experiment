@@ -31,7 +31,7 @@ function CreateControl() {
 	svg.classList.add("panel");
 	svg.setAttribute("width", "600");
 	svg.setAttribute("height", "200");
-	svg.setAttribute("viewBox", "0 -250 10000 500");
+	svg.setAttribute("viewBox", "0 -210 2000 500");
 	root.appendChild(svg);
 	const hz = document.createElement("p");
 	hz.classList.add("multiple-control");
@@ -133,6 +133,6 @@ setInterval(() => {
 		const now = performance.now() / 1000;
 		const elapsed = now - start;
 		const phase = 2 * Math.PI * hznum.value * elapsed - 0.05 * elapsed;
-		DrawWave(svg, 1300, hznum.value, phase, 10000);
+		DrawWave(svg, 300, hznum.value, phase, 2000);
 	}
 }, 0);
