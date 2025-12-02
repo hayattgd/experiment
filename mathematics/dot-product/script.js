@@ -14,6 +14,7 @@ swap.onclick = ev => {
 	const temp = vec1;
 	vec1 = vec2;
 	vec2 = temp;
+	Tick();
 }
 
 function Update() {
