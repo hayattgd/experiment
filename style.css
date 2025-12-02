@@ -9,13 +9,13 @@ body {
 body {
 	color: white;
 	font-family: monospace;
-	transition: all 0.1s ease-in;
+	transition: opacity 0.1s ease-in;
 	min-height: 100vh;
 	background: linear-gradient(#2c2f31, #11141a);
 	background-repeat: no-repeat;
 	background-attachment: fixed;
 	opacity: 0;
-	font-size: 19px;
+	font-size: 21px;
 }
 
 main {

@@ -40,10 +40,6 @@ function Update() {
 		vec2.y,
 		"#f17c0eff",
 		undefined,
-		`Length = ${(result * ratio).toFixed(1)}`
+		`Distance = ${(result * ratio).toFixed(1)}`
 	);
-
-	Tick();
 }
-
-setInterval(Update, 0);

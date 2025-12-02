@@ -8,6 +8,8 @@ const defaultWidth = 3;
 
 const ratio = 0.1;
 
+let _text_current_id = 0;
+
 let pointer = {
 	x: 0,
 	y: 0,
@@ -18,6 +20,7 @@ let pointer = {
 	down: false,
 	downnow: false,
 	clickProcessed: false,
+	moveProcessed: false,
 	cursor: "default"
 }
 
@@ -53,6 +56,7 @@ function GeometryToCanvas(x, y) {
 function Resize() {
 	canvas.width = container.clientWidth;
 	canvas.height = container.clientHeight;
+	Tick();
 }
 
 function Line(x1, y1, x2, y2, color = defaultColor, width = defaultWidth, string) {
@@ -78,10 +82,23 @@ function Point(x, y, color = defaultColor, radius = 5) {
 }
 
 function DrawText(string, x, y, size = 27, font = "serif", color = defaultColor) {
-	const p = GeometryToCanvas(x, y);
-	ctx.fillStyle = color;
-	ctx.font = `${size}px ${font}`;
-	ctx.fillText(string, p.x, p.y);
+	const id = `canvas-text-${_text_current_id}`;
+	const pos = GeometryToCanvas(x, y);
+	let element = document.getElementById(id);
+	if (!element) {
+		element = document.createElement("span");
+		element.id = id;
+		element.style.position = "absolute";
+		element.style.font = `${size}px ${font}`;
+		element.style.color = color;
+		container.appendChild(element);
+	}
+	if (!(element.textContent === string)) {
+		element.textContent = string;
+	}
+	element.style.left = `${pos.x}px`;
+	element.style.top = `${pos.y}px`;
+	_text_current_id += 1;
 }
 
 function ArrowHead(x, y, angle, length, color = defaultColor, width = defaultWidth) {
@@ -153,6 +170,7 @@ function UpdateDraggablePoint(point) {
 		SetCursor("grabbing");
 		point.x += pointer.relativeX;
 		point.y -= pointer.relativeY;
+		pointer.moveProcessed = true;
 	}
 
 	const p = GeometryToCanvas(point.x, point.y);
@@ -167,12 +185,16 @@ function UpdateDraggablePoint(point) {
 }
 
 function Tick() {
+	console.log("update");
+	pointer.moveProcessed = false;
+	Update();
 	pointer.downnow = false;
 	pointer.relativeX = 0;
 	pointer.relativeY = 0;
 	pointer.clickProcessed = false;
 	canvas.style.cursor = pointer.cursor;
 	pointer.cursor = "default";
+	_text_current_id = 0;
 }
 
 function GetAngle(x1, y1, x2, y2) {
@@ -194,22 +216,28 @@ function Normalize(x, y) {
 
 window.onresize = Resize;
 
-canvas.addEventListener("pointerdown", ev => {
+container.addEventListener("pointerdown", ev => {
 	pointer.down = true;
 	pointer.downnow = true;
+	Tick();
 });
 
-canvas.addEventListener("pointerup", ev => {
+container.addEventListener("pointerup", ev => {
 	pointer.down = false;
+	Tick();
 });
 
-canvas.addEventListener("pointermove", ev => {
+container.addEventListener("pointermove", ev => {
+	if (ev.target.tagName === "SPAN") {
+		return;
+	}
 	pointer.x = ev.offsetX;
 	pointer.y = ev.offsetY;
 	pointer.relativeX = pointer.x - pointer.lastX;
 	pointer.relativeY = pointer.y - pointer.lastY;
 	pointer.lastX = ev.offsetX;
 	pointer.lastY = ev.offsetY;
+	Tick();
 });
 
-Resize();
+window.onpageshow = Resize;
