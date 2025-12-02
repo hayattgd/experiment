@@ -1,13 +1,20 @@
 const resultOutput = document.getElementById("result");
+const swap = document.getElementById("swap");
 
-const vec1 = CreateDraggablePoint();
-const vec2 = CreateDraggablePoint();
+let vec1 = CreateDraggablePoint();
+let vec2 = CreateDraggablePoint();
 
 vec1.x = -30;
 vec1.y = 120;
 
 vec2.x = 90;
 vec2.y = -120;
+
+swap.onclick = ev => {
+	const temp = vec1;
+	vec1 = vec2;
+	vec2 = temp;
+}
 
 function Update() {
 	UpdateDraggablePoint(vec2);
