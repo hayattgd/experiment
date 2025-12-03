@@ -32,6 +32,7 @@ hr {
 	margin: 0;
 	margin-top: 25px;
 	height: 25px;
+	width: 80vw;
 }
 
 small {
@@ -182,6 +183,15 @@ input[type="checkbox"]:checked {
 	background-color: #1e80ff;
 }
 
+textarea {
+	border: none;
+	color: inherit;
+	width: 80vw;
+	height: 600px;
+	outline: none;
+	resize: none;
+}
+
 li {
 	list-style-position: inside;
 }
@@ -271,8 +281,18 @@ svg.panel {
 	padding: 0;
 }
 
+div.canvas-container-top {
+	height: 60px;
+}
+
 .canvas-container>canvas {
 	border-radius: 16px;
+}
+
+.canvas-container>samp {
+	position: absolute;
+	left: 25px;
+	top: 2dvh;
 }
 
 .canvas-container>span>br {

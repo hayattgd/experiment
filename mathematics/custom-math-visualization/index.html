@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="../../style.css">
+	<link rel="shortcut icon" href="https://hayattgd.github.io/img/favicon.png" type="image/x-icon">
+	<title>Custom math visualization</title>
+	<script src="../../script.js"></script>
+</head>
+
+<body>
+	<header><a id="back" href="../../index.html">back</a></header>
+	<main>
+		<div class="canvas-container-top"></div>
+		<div class="canvas-container panel" style="height: 70vh;">
+			<canvas></canvas>
+			<samp id="geometry-error">Error: <span id="error-text"></span></samp>
+		</div>
+		<hr>
+		<textarea spellcheck="false" class="panel"
+			id="code">function Update()&NewLine;{&NewLine; DrawXYAxis();&NewLine;}&NewLine;// Line(x1, y1, x2, y2, color?, width?, string?);&NewLine;// Arrow(x1, y1, x2, y2, color?, width?);&NewLine;// DrawText(string, x?, y?, size?, font?);&NewLine;// Direction(angle(radian), x, y, color?, width?);&NewLine;// Plane(normal, x, y, color?, length?, width?);&NewLine;// CreateDraggablePoint();&NewLine;// DrawDraggablePoint(point, color?, drawInfo?);&NewLine;// UpdateDraggablePoint(point);&NewLine;// CreateDraggableCircle();&NewLine;// DrawDraggableCircle(circle, color?, fillColor?, drawInfo?);&NewLine;// UpdateDraggableCircle(circle);&NewLine;//&NewLine;// Reference https://github.com/hayattgd/experiment/blob/main/geometrylib.js</textarea>
+		<!-- <div class="side-by-side">
+			<div class="panel" id="settings">
+				<button id="new-geometry">Add new geometry</button>
+				<select id="new-geometry-type">
+					<option value="line">Line</option>
+					<option value="arrow">Arrow</option>
+					<hr>
+					<option value="draggable-point">Draggable Point</option>
+					<option value="draggable-circle">Draggable Circle</option>
+				</select>
+				<li>
+					<p class="side-by-side">Show XY Axis:<input type="checkbox" id="show-xy-axis"></p>
+				</li>
+			</div>
+			<div class="panel" id="operations"></div>
+		</div> -->
+	</main>
+	<script src="../../geometrylib.js"></script>
+	<script id="user-script"></script>
+	<script src="script.js"></script>
+</body>
+
+</html>

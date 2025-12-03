@@ -10,7 +10,7 @@ window.onload = () => {
 	}
 
 	window.addEventListener("pageshow", ev => {
-		document.body.style = "opacity: 1;";
+		document.body.style.opacity = "1";
 	});
 
 	document.querySelectorAll('a[href]:not([href^="#"])').forEach(link => {

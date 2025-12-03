@@ -1,6 +1,8 @@
 const canvas = document.getElementsByTagName("canvas")[0];
 const container = document.getElementsByClassName("canvas-container")[0];
 
+const geometryError = document.getElementById("geometry-error");
+
 const ctx = canvas.getContext("2d");
 
 const defaultColor = "white";
@@ -93,7 +95,7 @@ function Circle(x, y, color = defaultColor, radius = 5, fillColor) {
 	ctx.stroke();
 }
 
-function DrawText(string, x, y, size = 27, font = "serif", color = defaultColor) {
+function DrawText(string, x = 0, y = 0, size = 27, font = "serif", color = defaultColor) {
 	const id = `canvas-text-${_text_current_id}`;
 	const pos = GeometryToCanvas(x, y);
 	let element = document.getElementById(id);
@@ -252,7 +254,19 @@ function UpdateDraggableCircle(circle) {
 function Tick() {
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
 	pointer.moveProcessed = false;
-	Update();
+	if (geometryError) {
+		try {
+			console.log("ticked");
+			Update();
+			geometryError.style.display = "none";
+		} catch (er) {
+			console.log("errored");
+			geometryError.textContent = `Error: ${er}`;
+			geometryError.style.display = "block";
+		}
+	} else {
+		Update();
+	}
 	pointer.downnow = false;
 	pointer.relativeX = 0;
 	pointer.relativeY = 0;
