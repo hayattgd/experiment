@@ -24,7 +24,6 @@ function Update() {
 	const result = CalcDot(vec1n.x, vec1n.y, vec2.x, vec2.y);
 	resultOutput.textContent = (result * ratio).toFixed(1);
 	const angle = Math.atan2(-vec1.y, -vec1.x);
-	ctx.clearRect(0, 0, canvas.width, canvas.height);
 
 	DrawXYAxis();
 

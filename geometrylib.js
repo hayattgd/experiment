@@ -81,6 +81,18 @@ function Point(x, y, color = defaultColor, radius = 5) {
 	ctx.fill();
 }
 
+function Circle(x, y, color = defaultColor, radius = 5, fillColor) {
+	const p = GeometryToCanvas(x, y);
+	ctx.beginPath();
+	ctx.arc(p.x, p.y, radius, 0, 2 * Math.PI);
+	if (fillColor) {
+		ctx.fillStyle = fillColor;
+		ctx.fill();
+	}
+	ctx.strokeStyle = color;
+	ctx.stroke();
+}
+
 function DrawText(string, x, y, size = 27, font = "serif", color = defaultColor) {
 	const id = `canvas-text-${_text_current_id}`;
 	const pos = GeometryToCanvas(x, y);
@@ -94,7 +106,7 @@ function DrawText(string, x, y, size = 27, font = "serif", color = defaultColor)
 		container.appendChild(element);
 	}
 	if (!(element.textContent === string)) {
-		element.textContent = string;
+		element.innerHTML = string;
 	}
 	element.style.left = `${pos.x}px`;
 	element.style.top = `${pos.y}px`;
@@ -129,7 +141,7 @@ function Arrow(x1, y1, x2, y2, color = defaultColor, width = defaultWidth) {
 }
 
 function Direction(angle, x, y, color = defaultColor, length = 100, width = defaultWidth) {
-	if (!x || !y) {
+	if (x == undefined || y == undefined) {
 		x = GetCenter().x;
 		y = GetCenter().y;
 	}
@@ -137,7 +149,7 @@ function Direction(angle, x, y, color = defaultColor, length = 100, width = defa
 }
 
 function Plane(normal, x, y, color = defaultColor, length = 300, width = defaultWidth) {
-	if (!x || !y) {
+	if (x == undefined || y == undefined) {
 		x = 0;
 		y = 0;
 	}
@@ -147,13 +159,12 @@ function Plane(normal, x, y, color = defaultColor, length = 300, width = default
 }
 
 function CreateDraggablePoint() {
-	const center = GetCenter();
-	return { x: center.x, y: center.y, radius: 6, dragging: false };
+	return { x: 0, y: 0, radius: 6, dragging: false };
 }
 
-function DrawDraggablePoint(point, color = defaultColor, drawPosition = true) {
+function DrawDraggablePoint(point, color = defaultColor, drawInfo = true) {
 	Point(point.x, point.y, color, point.radius);
-	if (drawPosition) {
+	if (drawInfo) {
 		DrawText(
 			`(${(point.x * ratio).toFixed(1)}, ${(point.y * ratio).toFixed(1)})`,
 			point.x + 20, point.y - 10
@@ -184,8 +195,62 @@ function UpdateDraggablePoint(point) {
 	}
 }
 
+function CreateDraggableCircle() {
+	return { x: 0, y: 0, pointRadius: 6, radius: 50, pdragging: false, rdragging: false };
+}
+
+function DrawDraggableCircle(circle, color = defaultColor, fillColor, drawInfo = true) {
+	Point(circle.x, circle.y, color, circle.pointRadius);
+	Point(circle.x + circle.radius, circle.y, color, circle.pointRadius);
+	Circle(circle.x, circle.y, color, circle.radius, fillColor);
+	if (drawInfo) {
+		DrawText(
+			`(${(circle.x * ratio).toFixed(1)}, ${(circle.y * ratio).toFixed(1)})<br>r=${(circle.radius * ratio).toFixed(1)}`,
+			circle.x + circle.radius + 5, circle.y - 10
+		);
+	}
+}
+
+function UpdateDraggableCircle(circle) {
+	if (!pointer.down) {
+		circle.pdragging = false;
+		circle.rdragging = false;
+	}
+
+	if (circle.pdragging) {
+		SetCursor("grabbing");
+		circle.x += pointer.relativeX;
+		circle.y -= pointer.relativeY;
+		pointer.moveProcessed = true;
+	}
+
+	if (circle.rdragging) {
+		SetCursor("grabbing");
+		circle.radius = Math.max(circle.radius + pointer.relativeX, 10);
+		pointer.moveProcessed = true;
+	}
+
+	const p = GeometryToCanvas(circle.x, circle.y);
+
+	if (GetLength(p.x, p.y, pointer.x, pointer.y) <= circle.pointRadius + 1) {
+		SetCursor("grab");
+		if (!pointer.clickProcessed && pointer.downnow) {
+			circle.pdragging = true;
+			pointer.clickProcessed = true;
+		}
+	}
+
+	if (GetLength(p.x + circle.radius, p.y, pointer.x, pointer.y) <= circle.pointRadius + 1) {
+		SetCursor("grab");
+		if (!pointer.clickProcessed && pointer.downnow) {
+			circle.rdragging = true;
+			pointer.clickProcessed = true;
+		}
+	}
+}
+
 function Tick() {
-	console.log("update");
+	ctx.clearRect(0, 0, canvas.width, canvas.height);
 	pointer.moveProcessed = false;
 	Update();
 	pointer.downnow = false;

@@ -275,6 +275,10 @@ svg.panel {
 	border-radius: 16px;
 }
 
+.canvas-container>span>br {
+	margin: 0;
+}
+
 canvas {
 	margin: 0;
 	padding: 0;
