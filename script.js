@@ -1,4 +1,14 @@
 window.onload = () => {
+	const qs = window.location.search.substring(1);
+	const queries = qs.split("&");
+
+	if (queries.indexOf("noback") > -1) {
+		const back = document.getElementById("back");
+		if (back) {
+			back.innerHTML = "";
+		}
+	}
+
 	window.addEventListener("pageshow", ev => {
 		document.body.style = "opacity: 1;";
 	});
