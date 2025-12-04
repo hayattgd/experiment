@@ -6,9 +6,10 @@ const errorText = document.getElementById("error-text");
 document.body.style.transition = "none";
 document.body.style.opacity = "1";
 
-script.innerHTML = code.value;
+script.innerHTML = window.sessionStorage.getItem("custom-math-code") || code.value;
 Tick();
 
 code.onchange = ev => {
+	window.sessionStorage.setItem("custom-math-code", code.value);
 	window.location.reload();
 };
