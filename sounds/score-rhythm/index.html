@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="../../style.css">
+	<link rel="shortcut icon" href="https://hayattgd.github.io/img/favicon.png" type="image/x-icon">
+	<title>Score rhythm player</title>
+	<script src="../../script.js"></script>
+	<style>
+		.highlight {
+			color: #0099ff;
+		}
+	</style>
+</head>
+
+<body>
+	<header><a id="back" href="../../index.html">back</a></header>
+	<main>
+		<div class="multiple-control">
+			<button id="play">Play</button>
+			<button id="reset">Reset</button>
+			<p>BPM:<input style="width: 50px;" type="number" id="bpm" value="60"></p>
+		</div>
+		<div class="panel" style="font-size: 70px;">𝄞 <span id="score"></span></div>
+		<div class="controls panel" style="font-size: 45px;">
+			<button class="no-decoration" id="note-whole">𝅝</button>
+			<button class="no-decoration" id="note-half">𝅗𝅥</button>
+			<button class="no-decoration" id="note-quarter">𝅘𝅥</button>
+			<button class="no-decoration" id="note-eighth">𝅘𝅥𝅮</button>
+			<button class="no-decoration" id="note-sixteenth">𝅘𝅥𝅯</button>
+			<button class="no-decoration" id="note-thirty-second">𝅘𝅥𝅰</button>
+			<button class="no-decoration" id="note-sixty-fourth">𝅘𝅥𝅱</button>
+			<button class="no-decoration" id="rest-whole">𝄻</button>
+			<button class="no-decoration" id="rest-half">𝄼</button>
+			<button class="no-decoration" id="rest-quarter">𝄽</button>
+			<button class="no-decoration" id="rest-eighth">𝄾</button>
+			<button class="no-decoration" id="rest-sixteenth">𝄿</button>
+			<button class="no-decoration" id="rest-thirty-second">𝅀</button>
+			<button class="no-decoration" id="rest-sixty-fourth">𝅁</button>
+			<button class="no-decoration" id="dot">.</button>
+		</div>
+	</main>
+	<script src="script.js"></script>
+</body>
+
+</html>
