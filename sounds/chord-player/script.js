@@ -18,10 +18,10 @@ adjustChord.onclick = ev => {
 	const first = Controls.children[0].lastChild.firstChild.value;
 	const second = first * 3 / 2;
 	const third = first * 5 / 4;
-	Controls.children[1].lastChild.firstChild.value = second;
 	Controls.children[1].lastChild.childNodes[1].value = second;
-	Controls.children[2].lastChild.firstChild.value = third;
+	Controls.children[1].lastChild.childNodes[1].onchange();
 	Controls.children[2].lastChild.childNodes[1].value = third;
+	Controls.children[2].lastChild.childNodes[1].onchange();
 }
 
 function CreateControl() {
@@ -136,3 +136,24 @@ setInterval(() => {
 		DrawWave(svg, 300, hznum.value, phase, 2000);
 	}
 }, 0);
+
+document.addEventListener("keydown", ev => {
+	if (ev.target.tagName == "INPUT") {
+		return;
+	}
+
+	if (ev.key == "1") {
+		Controls.children[0].lastChild.lastChild.checked = !Controls.children[0].lastChild.lastChild.checked;
+		Controls.children[0].lastChild.lastChild.onchange();
+	}
+
+	if (ev.key == "2") {
+		Controls.children[1].lastChild.lastChild.checked = !Controls.children[1].lastChild.lastChild.checked;
+		Controls.children[1].lastChild.lastChild.onchange();
+	}
+
+	if (ev.key == "3") {
+		Controls.children[2].lastChild.lastChild.checked = !Controls.children[2].lastChild.lastChild.checked;
+		Controls.children[2].lastChild.lastChild.onchange();
+	}
+});
