@@ -184,7 +184,7 @@ function GetNoteLengthVisually(idx) {
 function GetNoteLength(idx) {
 	const note = GetNote(idx);
 	if (note.textContent == ".") {
-
+		return GetLengthOfSingle(GetNote(idx - 1).textContent) * 1.5;
 	} else {
 		return GetLengthOfSingle(note.textContent);
 	}
@@ -201,8 +201,8 @@ function AddNote(note) {
 	element.style.position = "absolute";
 	if (note == ".") {
 		const lastlength = GetVisualLengthOfSingle(GetNote(score.children.length - 1).textContent);
-		element.style.left = `${currentPosition - lastlength + 10}px`;
-		element.style.bottom = "30px"
+		element.style.left = `${currentPosition - lastlength + 25}px`;
+		element.style.bottom = "25px"
 		currentPosition += lastlength * 0.5;
 	} else {
 		const length = GetVisualLengthOfSingle(note);
