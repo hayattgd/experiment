@@ -184,7 +184,7 @@ function GetNoteLengthVisually(idx) {
 function GetNoteLength(idx) {
 	const note = GetNote(idx);
 	if (note.textContent == ".") {
-		return GetLengthOfSingle(GetNote(idx - 1).textContent) * 1.5;
+
 	} else {
 		return GetLengthOfSingle(note.textContent);
 	}
