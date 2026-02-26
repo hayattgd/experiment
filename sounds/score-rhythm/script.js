@@ -221,7 +221,8 @@ function AddTuplet(divider) {
 	element.classList.add("musical-note");
 	element.classList.add("musical-tuplet-divider");
 	element.textContent = `${divider}`;
-	element.style.left = `${currentPosition}px`;
+	element.style.left = `${currentPosition + 5}px`;
+	currentPosition += 12.5;
 	score.appendChild(element);
 }
 
