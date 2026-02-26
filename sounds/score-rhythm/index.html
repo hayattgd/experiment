@@ -22,6 +22,12 @@
 		span {
 			font-family: "Noto Music";
 		}
+
+		.musical-tuplet-divider {
+			position: absolute;
+			bottom: 100px;
+			font-size: 27px;
+		}
 	</style>
 </head>
 
@@ -50,6 +56,9 @@
 			<button class="no-decoration" id="rest-thirty-second">𝅀</button>
 			<button class="no-decoration" id="rest-sixty-fourth">𝅁</button>
 			<button class="no-decoration" id="dot">.</button>
+			<input style="width: 30px; font-size: 25px;" type="number" id="tuplet-number"><button style="font-size: 20px;"
+				id="add-tuplet">Add
+				tuplet</button>
 		</div>
 	</main>
 	<script src="script.js"></script>

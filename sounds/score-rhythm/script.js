@@ -1,6 +1,9 @@
 const score = document.getElementById("score");
 const bpm = document.getElementById("bpm");
 
+const tupletNumber = document.getElementById("tuplet-number");
+const addTuplet = document.getElementById("add-tuplet");
+
 let audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
 let currentPosition = 100;
@@ -202,7 +205,7 @@ function AddNote(note) {
 	if (note == ".") {
 		const lastlength = GetVisualLengthOfSingle(GetNote(score.children.length - 1).textContent);
 		element.style.left = `${currentPosition - lastlength + 25}px`;
-		element.style.bottom = "25px"
+		element.style.bottom = "25px";
 		currentPosition += lastlength * 0.5;
 	} else {
 		const length = GetVisualLengthOfSingle(note);
@@ -213,18 +216,48 @@ function AddNote(note) {
 	score.style.paddingRight = `${currentPosition}px`;
 }
 
+function AddTuplet(divider) {
+	const element = document.createElement("span");
+	element.classList.add("musical-note");
+	element.classList.add("musical-tuplet-divider");
+	element.textContent = `${divider}`;
+	element.style.left = `${currentPosition}px`;
+	score.appendChild(element);
+}
+
+function floorPow2(n) {
+	if (n <= 0) throw new RangeError("n must be > 0");
+	const p = Math.floor(Math.log2(n));
+	return Math.pow(2, p);
+}
+
 function Play() {
 	const freq = 1024;
 	let time = 0;
+	let currentTuplet = -1;
+	let tuplet = 0;
 	for (let i = 0; i < score.children.length; i++) {
 		const note = GetNote(i);
+
+		if (note.classList.contains("musical-tuplet-divider")) {
+			tuplet = Number(note.textContent);
+			currentTuplet = tuplet;
+		}
+
 		if (i + 1 < score.children.length) {
 			if (GetNote(i + 1).textContent == ".") {
 				continue;
 			}
 		}
 
-		const length = GetNoteLength(i) * (60 / bpm.value);
+		let multiplier = 1;
+
+		if (currentTuplet > -1) {
+			currentTuplet -= 1;
+			multiplier = floorPow2(tuplet) / tuplet;
+		}
+
+		const length = GetNoteLength(i) * multiplier * (60 / bpm.value);
 		if (IsRest(note.textContent)) {
 			setTimeout(() => {
 				HighlightNote(i, length);
@@ -232,7 +265,7 @@ function Play() {
 			time += length;
 		} else {
 			setTimeout(() => {
-				Tone(freq, length);
+				Tone(freq, length - 0.01);
 				HighlightNote(i, length);
 			}, time * 1000);
 			time += length;
@@ -313,6 +346,10 @@ document.getElementById("rest-sixty-fourth").onclick = ev => {
 document.getElementById("dot").onclick = ev => {
 	AddNote(".");
 };
+
+addTuplet.onclick = ev => {
+	AddTuplet(tupletNumber.value);
+}
 
 document.addEventListener("keydown", ev => {
 	if (ev.target.tagName == "INPUT") {
