@@ -243,6 +243,7 @@ function Play() {
 		if (note.classList.contains("musical-tuplet-divider")) {
 			tuplet = Number(note.textContent);
 			currentTuplet = tuplet;
+			continue;
 		}
 
 		if (i + 1 < score.children.length) {
@@ -251,14 +252,17 @@ function Play() {
 			}
 		}
 
+		const note_length = GetNoteLength(i);
+
 		let multiplier = 1;
 
-		if (currentTuplet > -1) {
+		if (currentTuplet > 0) {
 			currentTuplet -= 1;
-			multiplier = floorPow2(tuplet) / tuplet;
+			multiplier = (1 / note_length) / tuplet;
 		}
 
-		const length = GetNoteLength(i) * multiplier * (60 / bpm.value);
+		const length = note_length * multiplier * (60 / bpm.value);
+		console.log(length);
 		if (IsRest(note.textContent)) {
 			setTimeout(() => {
 				HighlightNote(i, length);
@@ -266,7 +270,7 @@ function Play() {
 			time += length;
 		} else {
 			setTimeout(() => {
-				Tone(freq, length - 0.01);
+				Tone(freq, Math.max(length - 0.01, 0));
 				HighlightNote(i, length);
 			}, time * 1000);
 			time += length;
