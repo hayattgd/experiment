@@ -23,20 +23,22 @@ function Tone(frequency, duration) {
 	}
 }
 
-function HighlightNote(idx, duration) {
+function HighlightNote(idx, duration, isInt) {
 	const note = GetNote(idx);
+	let classname = "highlight";
+	if (isInt) { classname = "highlight-int"; }
 	if (note.textContent == ".") {
 		const realnote = GetNote(idx - 1);
-		note.classList.add("highlight");
-		realnote.classList.add("highlight");
+		note.classList.add(classname);
+		realnote.classList.add(classname);
 		setTimeout(() => {
-			note.classList.remove("highlight");
-			realnote.classList.remove("highlight");
+			note.classList.remove(classname);
+			realnote.classList.remove(classname);
 		}, duration * 1000);
 	} else {
-		note.classList.add("highlight");
+		note.classList.add(classname);
 		setTimeout(() => {
-			note.classList.remove("highlight");
+			note.classList.remove(classname);
 		}, duration * 1000);
 	}
 }
@@ -233,10 +235,12 @@ function floorPow2(n) {
 }
 
 function Play() {
-	const freq = 1024;
+	console.log("========================================");
+	let Bbfreq = 466.16;
+	let Ffreq = 698.46;
 	let time = 0;
-	let currentTuplet = -1;
-	let tuplet = 0;
+	let currentTuplet = 0;
+	let tuplet = 1;
 	for (let i = 0; i < score.children.length; i++) {
 		const note = GetNote(i);
 
@@ -253,26 +257,45 @@ function Play() {
 		}
 
 		const note_length = GetNoteLength(i);
+		let formula = "";
+		if (note.textContent == ".") {
+			formula += `${GetLengthOfSingle(GetNote(i - 1).textContent)} * 1.5`;
+		} else {
+			formula += `${GetLengthOfSingle(note.textContent)}`;
+		}
 
 		let multiplier = 1;
 
 		if (currentTuplet > 0) {
 			currentTuplet -= 1;
-			multiplier = (1 / note_length) / tuplet;
+			if (floorPow2(tuplet) == tuplet) {
+				multiplier = 1.5 / tuplet;
+				formula += ` * 1.5 / ${tuplet}`;
+			} else {
+				multiplier = floorPow2(tuplet) / tuplet;
+				formula += ` * ${floorPow2(tuplet)} / ${tuplet}`;
+			}
 		}
 
-		const length = note_length * multiplier * (60 / bpm.value);
+		const length = note_length * multiplier;
+
+		const length_with_bpm = length * (60 / bpm.value);
+		if (!(formula == length)) {
+			formula += ` = ${length}`;
+		}
+		console.log(`(${time / (60 / bpm.value)}) ${formula}`);
+		const isint = Number.isInteger(Math.round(time / (60 / bpm.value) * 10000000) / 10000000);
 		if (IsRest(note.textContent)) {
 			setTimeout(() => {
-				HighlightNote(i, length);
+				HighlightNote(i, length_with_bpm, isint);
 			}, time * 1000);
-			time += length;
+			time += length_with_bpm;
 		} else {
 			setTimeout(() => {
-				Tone(freq, Math.max(length - 0.01, 0));
-				HighlightNote(i, length);
+				Tone(freq, Math.max(length_with_bpm - 0.01, 0));
+				HighlightNote(i, length_with_bpm, isint);
 			}, time * 1000);
-			time += length;
+			time += length_with_bpm;
 		}
 	}
 }
