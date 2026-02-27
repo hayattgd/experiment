@@ -291,6 +291,10 @@ function Play() {
 			}, time * 1000);
 			time += length_with_bpm;
 		} else {
+			let freq = Bbfreq;
+			if (isint) {
+				freq = Ffreq;
+			}
 			setTimeout(() => {
 				Tone(freq, Math.max(length_with_bpm - 0.01, 0));
 				HighlightNote(i, length_with_bpm, isint);
