@@ -262,7 +262,6 @@ function Play() {
 		}
 
 		const length = note_length * multiplier * (60 / bpm.value);
-		console.log(length);
 		if (IsRest(note.textContent)) {
 			setTimeout(() => {
 				HighlightNote(i, length);
