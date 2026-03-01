@@ -238,7 +238,9 @@ function Play() {
 	console.log("========================================");
 	let Bbfreq = 466.16;
 	let Ffreq = 698.46;
+	let HiDfreq = 1174.66;
 	let time = 0;
+	let lastInt = 0;
 	let currentTuplet = 0;
 	let tuplet = 1;
 	for (let i = 0; i < score.children.length; i++) {
@@ -300,6 +302,14 @@ function Play() {
 				HighlightNote(i, length_with_bpm, isint);
 			}, time * 1000);
 			time += length_with_bpm;
+		}
+		if (time > lastInt) {
+			for (let i = 0; i < (time - lastInt) / (60 / bpm.value); i++) {
+				setTimeout(() => {
+					Tone(HiDfreq, 0.1);
+				}, lastInt * 1000);
+				lastInt += 60 / bpm.value;
+			}
 		}
 	}
 }
