@@ -11,7 +11,7 @@ vec2.x = 100;
 vec2.y = -50;
 
 swap.onclick = () => {
-	var vec = { x: vec1.x, y: vec1.y };
+	const vec = vec1;
 	vec1 = vec2;
 	vec2 = vec;
 	Tick();
