@@ -32,8 +32,20 @@ function SetCursor(cursor) {
 	}
 }
 
+function XYZtoCanvas(x, y, z) {
+	return GeometryToCanvas(XYZtoXY(x, y, z));
+}
+
+function XYZtoXY(x, y, z) {
+	return { x: x + z, y: x * -0.5 + z * 0.5 + y };
+}
+
+function XYtoXYZWithYLock(x, y) {
+	return { x: x / 2 - y, y: 0, z: x / 2 + y };
+}
+
 function GetCenter() {
-	return { x: canvas.width / 2, y: canvas.height / 2 }
+	return { x: canvas.width / 2, y: canvas.height / 2 };
 }
 
 function FullLength() {
@@ -43,6 +55,16 @@ function FullLength() {
 function DrawXYAxis() {
 	Line(-canvas.width, 0, canvas.width, 0, "#eb5c5c70", 2);
 	Line(0, -canvas.height, 0, canvas.height, "#86e08370", 2);
+}
+
+function DrawXYZAxis() {
+	var xaxis = XYZtoXY(canvas.width * 2, 0, 0);
+	var yaxis = XYZtoXY(0, canvas.height, 0, 0);
+	var zaxis = XYZtoXY(0, 0, canvas.width * 2);
+
+	Line(-xaxis.x, -xaxis.y, xaxis.x, xaxis.y, "#eb5c5c70", 2);
+	Line(-yaxis.x, -yaxis.y, yaxis.x, yaxis.y, "#86e08370", 2);
+	Line(-zaxis.x, -zaxis.y, zaxis.x, zaxis.y, "#83aae070", 2);
 }
 
 function CanvasToGeometry(x, y) {
@@ -169,6 +191,17 @@ function DrawDraggablePoint(point, color = defaultColor, drawInfo = true) {
 	if (drawInfo) {
 		DrawText(
 			`(${(point.x * ratio).toFixed(1)}, ${(point.y * ratio).toFixed(1)})`,
+			point.x + 20, point.y - 10
+		);
+	}
+}
+
+function DrawDraggablePoint3D(point, color = defaultColor, drawInfo = true) {
+	Point(point.x, point.y, color, point.radius);
+	var transformed = XYtoXYZWithYLock(point.x, point.y);
+	if (drawInfo) {
+		DrawText(
+			`(${(transformed.x * ratio).toFixed(1)}, ${(transformed.y * ratio).toFixed(1)}, ${(transformed.z * ratio).toFixed(1)})`,
 			point.x + 20, point.y - 10
 		);
 	}
