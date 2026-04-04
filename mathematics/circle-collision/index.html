@@ -18,6 +18,13 @@
 		<div class="canvas-container panel">
 			<canvas></canvas>
 		</div>
+		<p>
+			Get distance from one circle's center to other circle's center.
+			<br><samp class="formula">√(x₁ + x₂)² + (y₁ + y₂)² = d</samp>,
+			this is usually <samp>(vec1 - vec2).magnitude</samp> in programming.
+			<br>then, check if the value is greater than or equal to sum of it's radius.
+			<br>if it is, then it is colliding.
+		</p>
 	</main>
 	<script src="../../geometrylib.js"></script>
 	<script src="script.js"></script>

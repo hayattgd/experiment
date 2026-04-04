@@ -71,11 +71,10 @@ kbd {
 }
 
 samp {
-	background-color: #242424;
-	border: 1px solid #fff;
+	background-color: #323232a1;
 	border-radius: 8px;
 	padding: 5px;
-	font-size: 16px;
+	font-size: 20px;
 }
 
 br {
@@ -259,6 +258,10 @@ h1 {
 
 .multiple-control>p {
 	margin: 0;
+}
+
+.formula {
+	font-family: serif;
 }
 
 .panel {

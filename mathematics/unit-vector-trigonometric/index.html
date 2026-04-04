@@ -13,9 +13,25 @@
 <body>
 	<header><a id="back" href="../../index.html">back</a></header>
 	<main>
+		<div class="canvas-container-top"></div>
 		<div class="canvas-container panel">
 			<canvas></canvas>
 		</div>
+		<h4>Get angle from vector</h4>
+		<p>
+			First, normalize vector. This can be done with dividing vector with it's length.
+			<br>Get length: <samp class="formula">l = √x² + y²</samp> Then normalize by dividing both x, y with length.
+			<br>Now you have unit vector to work with, use arccos or arcsin to get it's angle.
+			<br>If you use arccos, It's <samp class="formula">arccos(x)=&theta;</samp> <sub>well you have to adjust it's angle
+				but whaterver</sub>
+			<br>
+		</p>
+		<h4>Get vector from angle and scalar(length)</h4>
+		<p>
+			It's quite simple, as you already have it's scalar and angle.
+			<br><samp class="formula">x = cos(&theta;)</samp> <samp class="formula">y = sin(&theta;)</samp>
+			Now, simply multiply that unit vector with scalar.
+		</p>
 	</main>
 	<script src="../../geometrylib.js"></script>
 	<script src="script.js"></script>
