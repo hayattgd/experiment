@@ -8,7 +8,7 @@ const ctx = canvas.getContext("2d");
 const defaultColor = "white";
 const defaultWidth = 3;
 
-const ratio = 0.1;
+let ratio = 0.1;
 
 let _text_current_id = 0;
 
@@ -115,6 +115,21 @@ function Circle(x, y, color = defaultColor, radius = 5, fillColor) {
 	}
 	ctx.strokeStyle = color;
 	ctx.stroke();
+}
+
+function Angle(x, y, angle = -Math.PI / 2, value = Math.PI, color = defaultColor, radius = 5, fillColor, drawInfo = true) {
+	const p = GeometryToCanvas(x, y);
+	ctx.beginPath();
+	ctx.arc(p.x, p.y, radius, angle, value + angle);
+	if (fillColor) {
+		ctx.fillStyle = fillColor;
+		ctx.fill();
+	}
+	ctx.strokeStyle = color;
+	ctx.stroke();
+	if (drawInfo) {
+		DrawText(`${(180 / Math.PI * value).toFixed(0)}°`, x, y + 70);
+	}
 }
 
 function DrawText(string, x = 0, y = 0, size = 27, font = "serif", color = defaultColor) {
@@ -227,6 +242,42 @@ function UpdateDraggablePoint(point) {
 			point.dragging = true;
 			pointer.clickProcessed = true;
 		}
+	}
+}
+
+function CreateAdjustableAngle() {
+	return { x: 0, y: 0, radius: 5, startangle: Math.PI / -2, angle: Math.PI, dragging: false };
+}
+
+function DrawAdjustableAngle(angle, color = defaultColor, fillColor, drawInfo = true) {
+	Angle(angle.x, angle.y, angle.startangle, angle.angle, color, angle.radius, fillColor, drawInfo);
+}
+
+function UpdateAdjustableAngle(angle) {
+	if (!pointer.down) {
+		angle.dragging = false;
+	}
+
+	const p = GeometryToCanvas(angle.x, angle.y);
+
+	if (GetLength(p.x, p.y, pointer.x, pointer.y) <= angle.radius + 1) {
+		SetCursor("grab");
+		if (!pointer.clickProcessed && pointer.downnow) {
+			angle.dragging = true;
+			pointer.clickProcessed = true;
+		}
+	}
+
+	if (angle.dragging) {
+		SetCursor("grabbing");
+		let geometryp = CanvasToGeometry(pointer.x, pointer.y)
+		let pointern = Normalize(geometryp.x - angle.x, geometryp.y - angle.y);
+		if (pointern.x > 0) {
+			angle.angle = -Math.acos(pointern.y) - angle.startangle;
+		} else {
+			angle.angle = Math.acos(pointern.y) - angle.startangle;
+		}
+		pointer.moveProcessed = true;
 	}
 }
 
