@@ -28,6 +28,10 @@ function Update() {
 	DrawXYAxis();
 
 	DrawDraggablePoint(vec1, "#1067e9ff");
+	DrawText(
+		`(${(vec1n.x).toFixed(1)}, ${(vec1n.y).toFixed(1)})`,
+		vec1.x + 20, vec1.y - 40
+	);
 	Arrow(0, 0, vec1.x, vec1.y, "#4c90f7ff");
 	Plane(angle, 0, 0, "#4c90f7ff", FullLength());
 
