@@ -1,4 +1,5 @@
 const resultOutput = document.getElementById("result");
+const formula = document.getElementById("formula");
 const swap = document.getElementById("swap");
 
 var vec1 = CreateDraggablePoint();
