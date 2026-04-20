@@ -19,11 +19,11 @@
 		</div>
 		<h4>Get angle from vector</h4>
 		<p>
+			<samp class="formula">arctan2(y, x)</samp> or if you want hard way...<br>
 			First, normalize vector. This can be done with dividing vector with it's length.
 			<br>Get length: <samp class="formula">l = √x² + y²</samp> Then normalize by dividing both x, y with length.
 			<br>Now you have unit vector to work with, use arccos or arcsin to get it's angle.
-			<br>If you use arccos, It's <samp class="formula">arccos(x)=&theta;</samp> <sub>well you have to adjust it's angle
-				but whaterver</sub>
+			<br>If you use arccos, It's <samp class="formula">arccos(x)=&theta;</samp> and invert it depending on its y or x
 			<br>
 			<samp>let vecn = vec.normalized;</samp><br>
 			<samp>if (vecn.x > 0) {</samp><br>
